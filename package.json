@@ -1,0 +1,24 @@
+{
+  "name": "ysfmodule",
+  "version": "1.0.0",
+  "description": "七鱼模块自动化构建工具",
+  "main": "./src/ysfmodule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ysfmodule": "./src/ysfmodule.js"
+  },
+  "keyword": [
+    "automatic",
+    "publish",
+    "NSFA",
+    "ysfmodule"
+  ],
+  "author": "jianfulee",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "inquirer": "^1.2.1"
+  }
+}
