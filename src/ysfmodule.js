@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-var moduleName = 'ddd';
+var moduleName = '';
 const inquirer = require('inquirer');
 const program = require('commander');
 
@@ -10,12 +10,25 @@ var questions = [{
     name: 'moduleName',
     message: 'please input module name.',
     default: false
+},{
+	type: 'input',
+	name: 'description',
+	message: 'please input description.',
+	default: false
 }];
-inquirer.prompt(questions).then(function(answers) {
-    console.log(answers.moduleName);
-    moduleName = answers.moduleName;
-    build();
-})
+
+program.version('0.0.1')
+		.option('run, --runParam', 'run shell')
+		.parse(process.argv);
+
+	if (program.runParam) {
+			inquirer.prompt(questions).then(function(answers) {
+    		console.log(answers);
+    		moduleName = answers.moduleName;
+    		build();
+})		
+	}
+
 
 var build = () => {
     try {
