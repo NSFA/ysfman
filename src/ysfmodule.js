@@ -4,6 +4,8 @@ const fs = require('fs');
 var moduleName = '';
 const inquirer = require('inquirer');
 const program = require('commander');
+const Handlebars = require('handlebars');
+var model = require('./model');
 
 var questions = [{
     type: 'input',
@@ -25,7 +27,9 @@ program.version('0.0.1')
 			inquirer.prompt(questions).then(function(answers) {
     		console.log(answers);
     		moduleName = answers.moduleName;
-    		build();
+    		var hhh = Handlebars.compile(model.packageJson)({moduleName: moduleName});
+    		// build();
+    		console.log(hhh);
 })		
 	}
 
