@@ -1,25 +1,14 @@
-var packageJson = 
-`
+var packageJson = `
 {
-  "name": {{moduleName}},
+  "name": "{{moduleName}}",
   "version": "0.0.1",
-  "description": "sf-modal component for sailfish",
+  "description": "{{description}}",
   "scripts": {
     "build": "webpack -w --config webpack.config.js",
     "test": "karma start karma.conf.js",
     "dev" : "webpack-dev-server --inline --hot -quiet"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NSFI/sf-button.git"
-  },
   "main":"src/tooltip.js",
-  "keywords": [
-    "vue",
-    "sailfish-ui",
-    "sf-modal",
-    "NSFI"
-  ],
   "devDependencies": {
     "html-loader": "^0.3.0",
     "lodash" : "^4.16.2",
@@ -37,10 +26,65 @@ var packageJson =
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
-  "author": "波比(｡･∀･)ﾉﾞ",
+  "author": "{{author}}",
   "license": "MIT"
 }
 `;
+
+var webpackConfigJs = `
+module.exports =  {
+    entry: "./src/index.js",
+    output: {
+        path: "./docs",
+        filename: "index.js"
+    },
+	//devtool: "source-map",
+    resolve:{
+        extensions: ['', '.js', '.vue']
+    },
+    module: {
+        loaders: [
+            {test: /\.html/, loader: 'html'},
+			{test: /\.scss$/,  loader: "style!css!sass" }
+        ]
+    }
+};
+`;
+
+var karmaConfJs = `
+// we can just use the exact same webpack config by requiring it
+// but make sure to delete the normal entry
+var webpackConf = require('./webpack.config');
+delete webpackConf.entry;
+
+module.exports = function (config) {
+
+	config.set({
+		browsers: ['PhantomJS'], // Chrome ,PhantomJS
+		frameworks: ['jasmine'],
+		reporters: ['spec'],
+		// this is the entry file for all our tests.
+		files: ['./test/index.js'],
+		// we will pass the entry file to webpack for bundling.
+		preprocessors: {
+			'./test/index.js': ['webpack']
+		},
+		webpack: webpackConf,
+		webpackMiddleware: {
+			noInfo: true
+		},
+		singleRun: true
+	})
+}
+`;
+
+var gitignore = `
+.idea
+node_modules
+`;
 module.exports = {
-	packageJson: packageJson
+	packageJson: packageJson,
+	webpackConfigJs: webpackConfigJs,
+	karmaConfJs: karmaConfJs,
+	gitignore: gitignore
 }

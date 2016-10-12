@@ -17,6 +17,11 @@ var questions = [{
 	name: 'description',
 	message: 'please input description.',
 	default: false
+},{
+	type: 'input',
+	name: 'author',
+	message: 'please input author name.',
+	default: false
 }];
 
 program.version('0.0.1')
@@ -26,15 +31,26 @@ program.version('0.0.1')
 	if (program.runParam) {
 			inquirer.prompt(questions).then(function(answers) {
     		console.log(answers);
-    		moduleName = answers.moduleName;
-    		var hhh = Handlebars.compile(model.packageJson)({moduleName: moduleName});
-    		// build();
-    		console.log(hhh);
+  		try{
+    		var packageData = {
+    			moduleName: answers.moduleName,
+    			description: answers.description,
+    			author: answers.author
+    		}
+    		packageJson = Handlebars.compile(model.packageJson)(packageData);
+    		karmaConfJs = Handlebars.compile(model.karmaConfJs)({});
+    		webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({});
+    		gitignore = Handlebars.compile(model.gitignore)({});
+    		var name = answers.moduleName.slice(3);
+    		build(answers.moduleName,name);
+    	}catch(err){
+    		console.log(err);
+    	}
 })		
 	}
 
 
-var build = () => {
+var build = (moduleName, name) => {
     try {
         fs.mkdirSync(moduleName, function() {
 
@@ -48,17 +64,26 @@ var build = () => {
         fs.mkdirSync(moduleName + '/test', function() {
 
         })
-        fs.writeFile(moduleName + '/karma.conf.js', '// TODO something', function() {
+        fs.writeFile(moduleName + '/karma.conf.js', karmaConfJs, function() {
 
         })
-        fs.writeFile(moduleName + '/package.json', '// TODO something', function() {
+        fs.writeFile(moduleName + '/package.json', packageJson, function() {
 
         })
         fs.writeFile(moduleName + '/README.md', '// TODO something', function() {
 
         })
-        fs.writeFile(moduleName + '/webpack.config.js', '// TODO something', function() {
+        fs.writeFile(moduleName + '/webpack.config.js', webpackConfigJs, function() {
 
+        })
+        fs.writeFile(moduleName + '/.gitignore', gitignore, function() {
+
+        })
+        fs.writeFile(moduleName + '/src/'+name+'.js', 'todo', function(){
+
+        })
+        fs.writeFile(moduleName + '/src/'+name+'.html', 'todo', function(){
+        	
         })
     } catch (err) {
         console.log(err);
