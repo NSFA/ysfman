@@ -82,9 +82,33 @@ var gitignore = `
 .idea
 node_modules
 `;
+
+var srcHtml = `<h3>hello,{{moduleName}}</h3>`;
+
+var srcJs = `
+/**
+ * {{moduleName}} 组件
+ *
+ * @author:   {{author}}
+ * @date:     {{time}}
+ *
+ * @props  to do something
+ * @props  to do something
+ * 
+ */
+
+require('./{{name}}.scss');
+
+module.exports = {
+	name : '{{moduleName}}',
+	template : require('./{{name}}.html')
+}
+`;
 module.exports = {
 	packageJson: packageJson,
 	webpackConfigJs: webpackConfigJs,
 	karmaConfJs: karmaConfJs,
-	gitignore: gitignore
+	gitignore: gitignore,
+	srcHtml: srcHtml,
+	srcJs: srcJs
 }

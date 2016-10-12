@@ -5,6 +5,7 @@ var moduleName = '';
 const inquirer = require('inquirer');
 const program = require('commander');
 const Handlebars = require('handlebars');
+const moment = require('moment');
 var model = require('./model');
 
 var questions = [{
@@ -32,16 +33,20 @@ program.version('0.0.1')
 			inquirer.prompt(questions).then(function(answers) {
     		console.log(answers);
   		try{
-    		var packageData = {
+  			var name = answers.moduleName.slice(3);
+    		var Data = {
     			moduleName: answers.moduleName,
     			description: answers.description,
-    			author: answers.author
+    			author: answers.author,
+    			name: name,
+    			time: moment().format('lll')
     		}
-    		packageJson = Handlebars.compile(model.packageJson)(packageData);
+    		packageJson = Handlebars.compile(model.packageJson)(Data);
     		karmaConfJs = Handlebars.compile(model.karmaConfJs)({});
     		webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({});
     		gitignore = Handlebars.compile(model.gitignore)({});
-    		var name = answers.moduleName.slice(3);
+    		srcHtml = Handlebars.compile(model.srcHtml)(Data);
+    		srcJs = Handlebars.compile(model.srcJs)(Data);
     		build(answers.moduleName,name);
     	}catch(err){
     		console.log(err);
@@ -79,10 +84,13 @@ var build = (moduleName, name) => {
         fs.writeFile(moduleName + '/.gitignore', gitignore, function() {
 
         })
-        fs.writeFile(moduleName + '/src/'+name+'.js', 'todo', function(){
+        fs.writeFile(moduleName + '/src/'+name+'.js', srcJs, function(){
 
         })
-        fs.writeFile(moduleName + '/src/'+name+'.html', 'todo', function(){
+        fs.writeFile(moduleName + '/src/'+name+'.html', srcHtml, function(){
+        	
+        })
+        fs.writeFile(moduleName + '/src/'+name+'.scss', 'todo', function(){
         	
         })
     } catch (err) {
