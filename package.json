@@ -1,6 +1,6 @@
 {
   "name": "ysfmodule",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "七鱼模块自动化构建工具",
   "main": "./src/ysfmodule.js",
   "scripts": {
@@ -8,6 +8,10 @@
   },
   "bin": {
     "ysfmodule": "./src/ysfmodule.js"
+  },
+  "repository": {
+  	"type": "git",
+  	"url": "https://github.com/NSFA/ysfmodule.git"
   },
   "keyword": [
     "automatic",
@@ -23,5 +27,8 @@
     "handlebars": "^4.0.5",
     "inquirer": "^1.2.1",
     "moment": "^2.15.1"
+  },
+  "bugs": {
+  	"url": "https://github.com/NSFA/ysfmodule/issues"
   }
 }
