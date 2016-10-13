@@ -75,7 +75,7 @@ var build = (moduleName, name) => {
         fs.writeFile(moduleName + '/package.json', packageJson, function() {
 
         })
-        fs.writeFile(moduleName + '/README.md', '// TODO something', function() {
+        fs.writeFile(moduleName + '/README.md', '## README', function() {
 
         })
         fs.writeFile(moduleName + '/webpack.config.js', webpackConfigJs, function() {
