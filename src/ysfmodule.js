@@ -12,7 +12,15 @@ var questions = [{
     type: 'input',
     name: 'moduleName',
     message: 'please input module name.',
-    default: false
+    default: false,
+    validate: function(value) {
+        var index = value.indexOf('-');
+        if(index == -1){
+            return '模块命名格式须为xxx-name.'
+        }else{
+            return true;
+        }
+    }
 },{
 	type: 'input',
 	name: 'description',
@@ -34,7 +42,8 @@ program.version('0.0.2')
 			inquirer.prompt(questions).then(function(answers) {
     		console.log('success!!');
   		try{
-  			var name = answers.moduleName.slice(3);
+            var _index = answers.moduleName.indexOf('-')
+  			var name = answers.moduleName.slice(_index+1);
     		var Data = {
     			moduleName: answers.moduleName,
     			description: answers.description,
@@ -44,7 +53,7 @@ program.version('0.0.2')
     		}
     		packageJson = Handlebars.compile(model.packageJson)(Data);
     		karmaConfJs = Handlebars.compile(model.karmaConfJs)({});
-    		webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({});
+    		webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({Data});
     		gitignore = Handlebars.compile(model.gitignore)({});
     		srcHtml = Handlebars.compile(model.srcHtml)(Data);
     		srcJs = Handlebars.compile(model.srcJs)(Data);
