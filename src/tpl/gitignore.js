@@ -1,4 +1,4 @@
 module.exports = 
-	`.idea
-	node_modules
-	`
+`.idea
+node_modules
+`

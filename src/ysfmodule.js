@@ -16,7 +16,7 @@ var questions = [{
 },{
 	type: 'input',
 	name: 'description',
-	message: 'please input description.',
+	message: 'please input module description.',
 	default: false
 },{
 	type: 'input',
@@ -25,13 +25,14 @@ var questions = [{
 	default: false
 }];
 
-program.version('0.0.1')
+program.version('0.0.2')
 		.option('run, --runParam', 'run shell')
+        .option('-c ,--compile', 'compile by your config.json')
 		.parse(process.argv);
 
 	if (program.runParam) {
 			inquirer.prompt(questions).then(function(answers) {
-    		console.log(answers);
+    		console.log('success!!');
   		try{
   			var name = answers.moduleName.slice(3);
     		var Data = {
@@ -47,6 +48,8 @@ program.version('0.0.1')
     		gitignore = Handlebars.compile(model.gitignore)({});
     		srcHtml = Handlebars.compile(model.srcHtml)(Data);
     		srcJs = Handlebars.compile(model.srcJs)(Data);
+            readmeMd = Handlebars.compile(model.readmeMd)(Data);
+            docHtml = Handlebars.compile(model.docHtml)(Data);
     		build(answers.moduleName,name);
     	}catch(err){
     		console.log(err);
@@ -75,7 +78,7 @@ var build = (moduleName, name) => {
         fs.writeFile(moduleName + '/package.json', packageJson, function() {
 
         })
-        fs.writeFile(moduleName + '/README.md', '## README', function() {
+        fs.writeFile(moduleName + '/README.md', readmeMd, function() {
 
         })
         fs.writeFile(moduleName + '/webpack.config.js', webpackConfigJs, function() {
@@ -90,8 +93,17 @@ var build = (moduleName, name) => {
         fs.writeFile(moduleName + '/src/'+name+'.html', srcHtml, function(){
         	
         })
-        fs.writeFile(moduleName + '/src/'+name+'.scss', 'todo', function(){
+        fs.writeFile(moduleName + '/src/'+name+'.scss', '', function(){
         	
+        })
+        fs.writeFile(moduleName + '/test/'+'index.js', '', function(){
+
+        })
+        fs.writeFile(moduleName + '/test/'+name+'.spec.html', '', function(){
+
+        })
+        fs.writeFile(moduleName + '/docs/'+name+'.html', docHtml, function(){
+
         })
     } catch (err) {
         console.log(err);

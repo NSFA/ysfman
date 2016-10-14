@@ -1,19 +1,27 @@
 module.exports = 
-   `/**
-	 * {{moduleName}} 组件
-	 *
-	 * @author:   {{author}}
-	 * @date:     {{time}}
-	 *
-	 * @props  to do something
-	 * @props  to do something
-	 * 
-	 */
+`/**
+ * {{moduleName}} 组件
+ *
+ * @author:   {{author}}
+ * @date:     {{time}}
+ *
+ * @props  {String} prop         -参数         
+ * 
+ */
 
-	require('./{{name}}.scss');
+require('./{{name}}.scss');
 
-	module.exports = {
-		name : '{{moduleName}}',
-		template : require('./{{name}}.html')
+module.exports = {
+	name : '{{moduleName}}',
+	template : require('./{{name}}.html'),
+	props : {
+
+	},
+	data : function() {
+		return {}
+	},
+	methods : {
+		
 	}
-	`
+}
+`
