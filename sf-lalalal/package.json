@@ -1,14 +1,13 @@
-module.exports = 
-	`{
-	  "name": "{{moduleName}}",
+{
+	  "name": "sf-lalalal",
 	  "version": "0.0.1",
-	  "description": "{{description}}",
+	  "description": "this module description",
 	  "scripts": {
 	    "build": "webpack -w --config webpack.config.js",
 	    "test": "karma start karma.conf.js",
 	    "dev" : "webpack-dev-server --inline --hot -quiet"
 	  },
-	  "main":"src/{{name}}.js",
+	  "main":"src/lalalal.js",
 	  "devDependencies": {
 	    "html-loader": "^0.3.0",
 	    "lodash" : "^4.16.2",
@@ -28,8 +27,8 @@ module.exports =
 	  },
 	  "repository": {
   		"type": "git",
-  		"url": "{{gitAdress}}"
+  		"url": "https://github.com/"
   	  },
-	  "author": "{{author}}",
+	  "author": "jianfulee",
 	  "license": "MIT"
-}`
+}

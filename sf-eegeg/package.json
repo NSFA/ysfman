@@ -1,14 +1,13 @@
-module.exports = 
-	`{
-	  "name": "{{moduleName}}",
+{
+	  "name": "sf-eegeg",
 	  "version": "0.0.1",
-	  "description": "{{description}}",
+	  "description": "efe",
 	  "scripts": {
 	    "build": "webpack -w --config webpack.config.js",
 	    "test": "karma start karma.conf.js",
 	    "dev" : "webpack-dev-server --inline --hot -quiet"
 	  },
-	  "main":"src/{{name}}.js",
+	  "main":"src/eegeg.js",
 	  "devDependencies": {
 	    "html-loader": "^0.3.0",
 	    "lodash" : "^4.16.2",
@@ -28,8 +27,8 @@ module.exports =
 	  },
 	  "repository": {
   		"type": "git",
-  		"url": "{{gitAdress}}"
+  		"url": "efef"
   	  },
-	  "author": "{{author}}",
+	  "author": "geg",
 	  "license": "MIT"
-}`
+}

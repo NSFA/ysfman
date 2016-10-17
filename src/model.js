@@ -7,6 +7,7 @@ var srcJs = require('./tpl/srcJs');
 var readmeMd = require('./tpl/readmeMd');
 var docHtml = require('./tpl/docHtml');
 var initFile = require('./tpl/initFile');
+var exampleHtml = require('./tpl/exampleHtml');
 module.exports = {
 	packageJson: packageJson,
 	webpackConfigJs: webpackConfigJs,
@@ -16,5 +17,6 @@ module.exports = {
 	srcJs: srcJs,
 	readmeMd: readmeMd,
 	docHtml: docHtml,
-	initFile: initFile
+	initFile: initFile,
+	exampleHtml: exampleHtml
 }

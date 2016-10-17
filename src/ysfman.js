@@ -32,6 +32,11 @@ var questions = [{
 	name: 'author',
 	message: 'please input author name.',
 	default: false
+},{
+    type: 'input',
+    name: 'gitAdress',
+    message: 'please input git repository adress.',
+    default: ''
 }];
 
 program.version('0.0.2')
@@ -51,16 +56,18 @@ program.version('0.0.2')
     			description: answers.description,
     			author: answers.author,
     			name: name,
-    			time: moment().format('lll')
+    			time: moment().format('lll'),
+                gitAdress: answers.gitAdress
     		}
     		packageJson = Handlebars.compile(model.packageJson)(Data);
     		karmaConfJs = Handlebars.compile(model.karmaConfJs)({});
-    		webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({Data});
+    		webpackConfigJs = Handlebars.compile(model.webpackConfigJs)(Data);
     		gitignore = Handlebars.compile(model.gitignore)({});
     		srcHtml = Handlebars.compile(model.srcHtml)(Data);
     		srcJs = Handlebars.compile(model.srcJs)(Data);
             readmeMd = Handlebars.compile(model.readmeMd)(Data);
             docHtml = Handlebars.compile(model.docHtml)(Data);
+            exampleHtml = Handlebars.compile(model.exampleHtml)(Data);
     		build(answers.moduleName,name);
             console.log(answers.moduleName+'目录已创建.');
     	}catch(err){
@@ -83,16 +90,18 @@ program.version('0.0.2')
                             description: obj.description,
                             author: obj.author,
                             name: name,
-                            time: moment().format('lll')
+                            time: moment().format('lll'),
+                            gitAdress: obj.gitAdress
                         }
                         packageJson = Handlebars.compile(model.packageJson)(Data);
                         karmaConfJs = Handlebars.compile(model.karmaConfJs)({});
-                        webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({Data});
+                        webpackConfigJs = Handlebars.compile(model.webpackConfigJs)(Data);
                         gitignore = Handlebars.compile(model.gitignore)({});
                         srcHtml = Handlebars.compile(model.srcHtml)(Data);
                         srcJs = Handlebars.compile(model.srcJs)(Data);
                         readmeMd = Handlebars.compile(model.readmeMd)(Data);
                         docHtml = Handlebars.compile(model.docHtml)(Data);
+                        exampleHtml = Handlebars.compile(model.exampleHtml)(Data);
                         build(obj.moduleName,name);
                         console.log(obj.moduleName+'目录已创建.');
                     }
@@ -125,6 +134,12 @@ var build = (moduleName, name) => {
 
         })
         fs.mkdirSync(moduleName + '/test', function() {
+
+        })
+        fs.mkdirSync(moduleName + '/examples', function() {
+
+        })
+        fs.writeFile(moduleName + '/examples/'+name+'.html', exampleHtml, function() {
 
         })
         fs.writeFile(moduleName + '/karma.conf.js', karmaConfJs, function() {
