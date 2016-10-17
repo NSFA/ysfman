@@ -6,6 +6,7 @@ const inquirer = require('inquirer');
 const program = require('commander');
 const Handlebars = require('handlebars');
 const moment = require('moment');
+const buf = new Buffer(1024);
 var model = require('./model');
 
 var questions = [{
@@ -36,6 +37,7 @@ var questions = [{
 program.version('0.0.2')
 		.option('run, --runParam', 'run shell')
         .option('-c ,--compile', 'compile by your config.json')
+        .option('init,--initParam', 'init config.json file.')
 		.parse(process.argv);
 
 	if (program.runParam) {
@@ -60,11 +62,55 @@ program.version('0.0.2')
             readmeMd = Handlebars.compile(model.readmeMd)(Data);
             docHtml = Handlebars.compile(model.docHtml)(Data);
     		build(answers.moduleName,name);
+            console.log(answers.moduleName+'目录已创建.');
     	}catch(err){
     		console.log(err);
     	}
 })		
 	}
+
+    if(program.compile){
+        try{
+            fs.open('config.json', 'r+', function(err, fd) {
+                fs.read(fd, buf, 0, buf.length, 0, function(err, bytes) {
+                    if (bytes > 0) {
+                        var str = buf.slice(0,bytes).toString();
+                        var obj = JSON.parse(str);
+                        var _index = obj.moduleName.indexOf('-')
+                        var name = obj.moduleName.slice(_index+1);
+                        var Data = {
+                            moduleName: obj.moduleName,
+                            description: obj.description,
+                            author: obj.author,
+                            name: name,
+                            time: moment().format('lll')
+                        }
+                        packageJson = Handlebars.compile(model.packageJson)(Data);
+                        karmaConfJs = Handlebars.compile(model.karmaConfJs)({});
+                        webpackConfigJs = Handlebars.compile(model.webpackConfigJs)({Data});
+                        gitignore = Handlebars.compile(model.gitignore)({});
+                        srcHtml = Handlebars.compile(model.srcHtml)(Data);
+                        srcJs = Handlebars.compile(model.srcJs)(Data);
+                        readmeMd = Handlebars.compile(model.readmeMd)(Data);
+                        docHtml = Handlebars.compile(model.docHtml)(Data);
+                        build(obj.moduleName,name);
+                        console.log(obj.moduleName+'目录已创建.');
+                    }
+                })
+            })
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    if (program.initParam) {
+        fs.writeFile('config.json', model.initFile, function(err) {
+            if (err) {
+                console.log(err);
+            }
+            console.log('config.json在当前目录下初始化完毕。')
+        })
+    }
 
 
 var build = (moduleName, name) => {
