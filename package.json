@@ -1,23 +1,23 @@
 {
-  "name": "ysfmodule",
-  "version": "0.0.4",
+  "name": "ysfman",
+  "version": "1.0.0",
   "description": "七鱼模块自动化构建工具",
-  "main": "./src/ysfmodule.js",
+  "main": "./src/ysfman.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ysfmodule": "./src/ysfmodule.js"
+    "ysfman": "./src/ysfman.js"
   },
   "repository": {
   	"type": "git",
-  	"url": "https://github.com/NSFA/ysfmodule.git"
+  	"url": "https://github.com/NSFA/ysfman.git"
   },
   "keyword": [
     "automatic",
     "publish",
     "NSFA",
-    "ysfmodule"
+    "ysfman"
   ],
   "author": "jianfulee",
   "license": "MIT",
@@ -29,6 +29,6 @@
     "moment": "^2.15.1"
   },
   "bugs": {
-  	"url": "https://github.com/NSFA/ysfmodule/issues"
+  	"url": "https://github.com/NSFA/ysfman/issues"
   }
 }
