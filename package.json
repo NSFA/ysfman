@@ -1,6 +1,6 @@
 {
   "name": "ysfman",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "七鱼模块自动化构建工具",
   "main": "./src/ysfman.js",
   "scripts": {
